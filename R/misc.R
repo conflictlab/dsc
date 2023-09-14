@@ -84,7 +84,7 @@ preprocessing <- function(data, filter.width = 5, norm.method = "t",
   n.buffer = (filter.width - 1)/2
   values.w.buffer = sapply(values %>% select(-.data$time),
                            add.buffer, n = n.buffer) %>%
-    data.frame(.data)
+    data.frame()
 
   # derivative
   values.w.buffer = values.w.buffer %>%
@@ -116,7 +116,7 @@ warp2weight <- function(W) {
     matrix(.data,
            nrow = ncol(w),
            ncol = nrow(w)) %>%
-    t(.data)
+    t()
   weight = rowSums(w * count)
 
   return(weight)

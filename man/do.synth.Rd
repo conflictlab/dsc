@@ -4,7 +4,7 @@
 \alias{do.synth}
 \title{Apply the Synth Method to Time-Series Data (Internal)}
 \usage{
-\method{do}{synth}(
+do.synth(
   df,
   dep.var,
   dependent.id,
