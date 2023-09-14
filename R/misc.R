@@ -111,16 +111,19 @@ preprocessing <- function(data, filter.width = 5, norm.method = "t",
 #' @param W The warping path.
 #' @return Weights.
 warp2weight <- function(W) {
-  w = as.matrix(W)
-  count = rep(1/colSums(w), nrow(w)) %>%
-    matrix(.,
-           nrow = ncol(w),
-           ncol = nrow(w)) %>%
+  w <- as.matrix(W)
+
+  count_vals <- 1/colSums(w)
+  count <- matrix(rep(count_vals, nrow(w)),
+                  nrow = ncol(w),
+                  ncol = nrow(w)) %>%
     t()
-  weight = rowSums(w * count)
+
+  weight <- rowSums(w * count)
 
   return(weight)
 }
+
 
 #' @title Warp Time Series with Weights
 #' @description Warps a time series using the provided weights.
