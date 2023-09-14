@@ -88,7 +88,7 @@ preprocessing <- function(data, filter.width = 5, norm.method = "t",
 
   # derivative
   values.w.buffer = values.w.buffer %>%
-    mutate_all(~signal::sgolayfilt(.data, n.poly, filter.width, n.deri))
+    mutate_all(~signal::sgolayfilt(., n.poly, filter.width, n.deri))
   values[-1] = values.w.buffer[(n.buffer + 1):(n.buffer + nrow(values)),]
 
   # join
