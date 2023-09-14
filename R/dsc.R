@@ -118,7 +118,7 @@ dsc <- function(data, start.time, end.time, treat.time,
   # TFDTW
   if (parallel) {
     fun_map <- furrr::future_map
-    future::plan(future::multisession, workers = parallel::detectCores() - 1)
+    # future::plan(future::multisession, workers = parallel::detectCores() - 1)
   }else{
     fun_map <- purrr::map
   }
