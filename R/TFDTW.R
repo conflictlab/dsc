@@ -1,6 +1,21 @@
-## Functions -------------------------------------------------------------------
-# 1st dtw
-first.dtw = function(x, y, t.treat, buffer = 10, 
+#' Dynamic Time Warping: First Phase
+#'
+#' This function calculates the dynamic time warping for the first phase.
+#'
+#' @param x A numeric vector.
+#' @param y A numeric vector.
+#' @param t.treat Treatment time.
+#' @param buffer Buffer size. Default is 10.
+#' @param norm.method Normalization method. Default is "t".
+#' @param match.method Matching method. Default is "fixed".
+#' @param step.pattern Step pattern to use. Default is \code{dtw::symmetricP2}.
+#' @param window.type Type of window. Default is "none".
+#' @param window.size Optional size for the window. Default is NULL.
+#' @param plot.figures Logical, whether to plot figures. Default is FALSE.
+#' @param ... Additional arguments passed to other methods.
+#' @return A list containing various outputs from the DTW process.
+#' @keywords internal
+first.dtw = function(x, y, t.treat, buffer = 10,
                      norm.method = "t", match.method = "fixed",
                      step.pattern = dtw::symmetricP2,
                      window.type = "none",
@@ -9,12 +24,12 @@ first.dtw = function(x, y, t.treat, buffer = 10,
   # backup
   y.bak = y
   x.bak = x
-  
+
   # normalize
   y = normalize(y.bak[1:t.treat], norm.method)
   x = normalize(x.bak[1:(t.treat + buffer)],
                 norm.method, x.bak[1:t.treat])
-  
+
   if (match.method == "fixed") {
     alignment = dtw::dtw(y, x, keep = TRUE,
                          step.pattern = step.pattern,
@@ -30,7 +45,7 @@ first.dtw = function(x, y, t.treat, buffer = 10,
                     norm.method, x.bak[1:t.treat])
       x.too.short = RefTooShort(y, x, step.pattern = step.pattern)
     }
-    
+
     # dtw
     alignment = dtw::dtw(y, x, keep = TRUE,
                          step.pattern = step.pattern,
@@ -38,17 +53,17 @@ first.dtw = function(x, y, t.treat, buffer = 10,
                          window.size = window.size,
                          open.end = TRUE, ...)
   }
-  
+
   if (plot.figures) {
     dtw::dtwPlotThreeWay(alignment)
   }
   wr = suppressWarnings(dtw::warp(alignment, index.reference = TRUE))
   W = Matrix::sparseMatrix(alignment$index2, alignment$index1)
   cutoff = round(wr[t.treat])
-  
+
   # partition warping path W
   W.a = W[1:cutoff, 1:t.treat]
-  
+
   return(list(x = x.bak, y = y.bak,
               t.treat = t.treat,
               buffer = buffer,
@@ -58,9 +73,27 @@ first.dtw = function(x, y, t.treat, buffer = 10,
               cutoff = cutoff))
 }
 
-
-# 2nd dtw
-second.dtw = function(x.post, x.pre, k, weight.a, 
+#' Dynamic Time Warping: Second Phase
+#'
+#' This function calculates the dynamic time warping for the second phase.
+#'
+#' @param x.post Post values of x.
+#' @param x.pre Pre values of x.
+#' @param k An integer.
+#' @param weight.a Weight values for a.
+#' @param norm.method Normalization method. Default is "t".
+#' @param default.margin Default margin size. Default is 3.
+#' @param n.q An integer, default 1.
+#' @param n.r An integer, default 1.
+#' @param step.pattern Step pattern to use. Default is \code{dtw::asymmetricP2}.
+#' @param window.type Type of window. Default is "none".
+#' @param window.size Optional size for the window. Default is NULL.
+#' @param dist.quant Distance quantile. Default is 1.
+#' @param n.IQR Number of IQR. Default is 3.
+#' @param ... Additional arguments passed to other methods.
+#' @return A list containing various outputs from the second DTW process.
+#' @keywords internal
+second.dtw = function(x.post, x.pre, k, weight.a,
                       norm.method = "t",
                       default.margin = 3,
                       n.q = 1, n.r = 1,
@@ -70,7 +103,7 @@ second.dtw = function(x.post, x.pre, k, weight.a,
                       dist.quant = 1, n.IQR = 3, ...){
   n.pre = length(x.pre)
   n.post = length(x.post)
- 
+
   # slide target window
   i = 1
   weight.stacked = NULL
@@ -79,7 +112,7 @@ second.dtw = function(x.post, x.pre, k, weight.a,
     Q = x.post[i:(i + k - 1)]
     Q = normalize(Q, norm.method)
     costs.qr = NULL
-    
+
     # slide reference window
     continue = TRUE
     margin = default.margin
@@ -123,7 +156,7 @@ second.dtw = function(x.post, x.pre, k, weight.a,
     min.cost = which(costs.qr$cost == min(costs.qr$cost))[1]
     j.opt = costs.qr$j[min.cost]
     margin.opt = costs.qr$margin[min.cost]
-    
+
     # obtain warping path W.pp.i: x.post -> n.pre
     Rs = x.pre[j.opt:min(j.opt + k + margin.opt - 1, n.pre)]
     Rs = normalize(Rs, norm.method)
@@ -133,26 +166,26 @@ second.dtw = function(x.post, x.pre, k, weight.a,
                              window.size = window.size, ...)
     W.pp.i = Matrix::sparseMatrix(alignment.qrs$index1,
                                   alignment.qrs$index2)
-    
+
     # obtain weight.b
     weight.a.Rs = weight.a[j.opt:(j.opt + ncol(W.pp.i) - 1)]
     weight.b = (W.pp.i %*% weight.a.Rs)/rowSums(as.matrix(W.pp.i))
     weight.b = as.numeric(weight.b)
-    
+
     # convert warping path to weight
     weight.i = matrix(rep(NaN, n.post), nrow = 1)
     weight.i[1, i:(i + k - 1)] = weight.b
-    
+
     # stack weight
     weight.stacked = rbind(weight.stacked, weight.i)
-    
+
     # distance
     distance = c(distance, alignment.qrs$distance)
-    
+
     # next
     i = i + n.q
   }
-  
+
   # handle misfits
   misfits = which(distance > quantile(distance, dist.quant))
   if (length(misfits) > 0) {
@@ -160,24 +193,48 @@ second.dtw = function(x.post, x.pre, k, weight.a,
   }
 
   # handle outliers
-  weight.stacked = data.frame(weight.stacked) %>% 
+  weight.stacked = data.frame(weight.stacked) %>%
     mutate_all(RemoveOutliers, n.IQR = n.IQR)
-  
+
   # average weight
   avg.weight = colMeans(weight.stacked, na.rm = TRUE)
   avg.weight[is.na(avg.weight)] = 1
-  
+
   return(list(x.post = x.post, x.pre =x.pre,
-              k = k, weight.a = weight.a, 
+              k = k, weight.a = weight.a,
               step.pattern = step.pattern,
               weight.stacked = weight.stacked,
               avg.weight = avg.weight,
               dist.quant = dist.quant, n.IQR = n.IQR))
 }
 
-
-# Two Step DTW
-TFDTW = function(x, y, k, t.treat, buffer, 
+#' Two-Step Dynamic Time Warping
+#'
+#' This function performs a two-step dynamic time warping.
+#'
+#' @param x A numeric vector.
+#' @param y A numeric vector.
+#' @param k An integer.
+#' @param t.treat Treatment time.
+#' @param buffer Buffer size.
+#' @param norm.method Normalization method. Default is "t".
+#' @param match.method Matching method. Default is "fixed".
+#' @param step.pattern1 Step pattern for the first phase. Default is \code{dtw::symmetricP2}.
+#' @param step.pattern2 Step pattern for the second phase. Default is \code{dtw::asymmetricP2}.
+#' @param plot.figures Logical, whether to plot figures. Default is FALSE.
+#' @param n.burn Burn-in size. Default is 3.
+#' @param ma Moving average window size. Default is 3.
+#' @param ma.na Method for handling NA in moving average. Default is "original".
+#' @param dist.quant Distance quantile. Default is 1.
+#' @param n.IQR Number of IQR. Default is 3.
+#' @param window.type Type of window. Default is "none".
+#' @param default.margin Default margin size. Default is 3.
+#' @param n.q An integer, default 1.
+#' @param n.r An integer, default 1.
+#' @param ... Additional arguments passed to other methods.
+#' @return A list containing various outputs from the two-step DTW process.
+#' @keywords internal
+TFDTW = function(x, y, k, t.treat, buffer,
                  norm.method = "t",
                  match.method = "fixed",
                  step.pattern1 = dtw::symmetricP2,
@@ -196,12 +253,12 @@ TFDTW = function(x, y, k, t.treat, buffer,
     window.size1 = NULL
     window.size2 = NULL
   }
-  
+
   # 1st dtw
   res.1stDTW = first.dtw(x = x, y = y,
-                         t.treat = t.treat, 
-                         buffer = buffer, 
-                         norm.method = norm.method, 
+                         t.treat = t.treat,
+                         buffer = buffer,
+                         norm.method = norm.method,
                          match.method = match.method,
                          step.pattern = step.pattern1,
                          window.type = window.type,
@@ -211,7 +268,7 @@ TFDTW = function(x, y, k, t.treat, buffer,
   x.pre = x[1:cutoff]
   x.post = x[(cutoff - n.burn):length(x)]
   W.a = res.1stDTW$W.a
-  
+
   # compute weight a
   weight.a.o = warp2weight(W.a)
   weight.a = as.numeric(stats::filter(weight.a.o, rep(1/ma, ma)))
@@ -223,21 +280,21 @@ TFDTW = function(x, y, k, t.treat, buffer,
   }else if (ma.na == "original") {
     weight.a[is.na(weight.a)] = weight.a.o[is.na(weight.a)]
   }
-  
+
   # 2nd dtw
   res.2ndDTW = second.dtw(x.post = x.post, x.pre = x.pre,
-                          k = k, weight.a = weight.a, 
+                          k = k, weight.a = weight.a,
                           norm.method = norm.method,
                           step.pattern = step.pattern2,
                           dist.quant = dist.quant,
-                          n.IQR = n.IQR, 
+                          n.IQR = n.IQR,
                           window.type = window.type,
                           window.size = window.size2,
                           default.margin = default.margin,
                           n.q = n.q, n.r = n.r, ...)
   avg.weight = res.2ndDTW$avg.weight
   avg.weight = avg.weight[(n.burn + 1):length(avg.weight)]
-  
+
   return(list(y = y, x = x, k = k,
               t.treat = t.treat,
               cutoff = cutoff,
@@ -246,3 +303,4 @@ TFDTW = function(x, y, k, t.treat, buffer,
               weight.stacked = res.2ndDTW$weight.stacked,
               avg.weight = avg.weight))
 }
+
