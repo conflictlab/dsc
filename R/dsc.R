@@ -116,7 +116,12 @@ dsc <- function(data, start.time, end.time, treat.time,
     group_split(.keep = TRUE)
 
   # TFDTW
-  fun_map <- ifelse(parallel, furrr::future_map, purrr::map)
+  if (parallel) {
+    fun_map <- furrr::future_map
+    future::plan(future::multisession, workers = parallel::detectCores() - 1)
+  }else{
+    fun_map <- purrr::map
+  }
   results <- x.list %>%
     set_names(sapply(x.list, function(df) df[[1,1]])) %>%
     fun_map(
