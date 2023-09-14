@@ -74,7 +74,7 @@ preprocessing <- function(data, filter.width = 5, norm.method = "t",
                           n.poly = 3, n.deri = 2, plot.data = FALSE) {
   # transform
   values = reshape2::dcast(data %>% select(c("unit", "time", "value_raw")),
-                           .data$time ~ .data$unit, value.var = "value_raw")
+                           time ~ unit, value.var = "value_raw")
 
   # normalize
   values = values %>% mutate_at(setdiff(colnames(.data$values), "time"),

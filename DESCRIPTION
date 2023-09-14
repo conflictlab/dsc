@@ -28,8 +28,9 @@ Imports:
     tibble,
     zoo
 Suggests: 
-    testthat,
+    testthat (>= 3.0.0),
     knitr,
     rmarkdown
 Encoding: UTF-8
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3
