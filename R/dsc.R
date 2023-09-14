@@ -36,6 +36,15 @@
 #'
 #' @return A list containing results of the synthetic control analysis.
 #'
+#' @importFrom dplyr group_by summarize ungroup mutate select left_join
+#' @importFrom dplyr right_join group_split bind_rows mutate_at mutate_all
+#' @importFrom ggplot2 ggplot aes geom_line theme_bw
+#' @importFrom magrittr `%>%`
+#' @importFrom stats quantile sd
+#' @importFrom tibble add_row
+#' @importFrom purrr set_names
+#' @importFrom rlang .data
+#'
 #' @examples
 #' \dontrun{
 #' data <- data.frame(...)
@@ -64,24 +73,24 @@ dsc <- function(data, start.time, end.time, treat.time,
   # Preprocess data
   if (rescale) {
     rescale_data <- data %>%
-      filter(time <= treat.time) %>%
-      group_by(unit) %>%
+      dplyr::filter(.data$time <= treat.time) %>%
+      group_by(.data$unit) %>%
       summarize(
-        value.min = min(value),
-        value.max = max(value)) %>%
+        value.min = min(.data$value),
+        value.max = max(.data$value)) %>%
       ungroup()
 
     mean.diff = mean(rescale_data$value.max - rescale_data$value.min)
     rescale_data = rescale_data %>%
       mutate(
-        multiplier = mean.diff/(value.max - value.min)
+        multiplier = mean.diff/(.data$value.max - .data$value.min)
       )
 
     data <- left_join(data, rescale_data, by = "unit") %>%
       mutate(
-        value.bak = value_raw,
-        value_raw = (value_raw - value.min) * multiplier,
-        value = value_raw
+        value.bak = .data$value_raw,
+        value_raw = (.data$value_raw - .data$value.min) * .data$multiplier,
+        value = .data$value_raw
       )
   }
 
@@ -94,16 +103,16 @@ dsc <- function(data, start.time, end.time, treat.time,
   t.treat <- (treat.time - start.time) + 1
 
   y_values <- data %>%
-    filter(unit == dependent & time <= end.time) %>%
-    select(value_raw, value)
+    dplyr::filter(.data$unit == dependent & .data$time <= end.time) %>%
+    select(.data$value_raw, .data$value)
 
   y.raw <- y_values[["value_raw"]]
   y.processed <- y_values[["value"]]
 
   x.list <- data %>%
-    filter(unit != dependent & time <= end.time) %>%
-    select(unit, time, value, value_raw) %>%
-    group_by(unit) %>%
+    dplyr::filter(.data$unit != dependent & .data$time <= end.time) %>%
+    select(.data$unit, .data$time, .data$value, .data$value_raw) %>%
+    group_by(.data$unit) %>%
     group_split(.keep = TRUE)
 
   # TFDTW
@@ -160,7 +169,7 @@ dsc <- function(data, start.time, end.time, treat.time,
             value_warped = y.raw)
 
   df.synth = right_join(data, df.synth, by = c("unit", "time"))
-  dependent.id = df.synth$id[which.max(df.synth$unit == dependent)]
+  dependent.id = df.synth[["id"]][which.max(df.synth$unit == dependent)]
 
   # Synth
   res.synth = do.synth(df = df.synth,

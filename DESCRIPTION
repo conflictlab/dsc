@@ -1,12 +1,35 @@
 Package: dsc
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Type: Package
+Title: Dynamic Synthetic Control
+Version: 0.1.0
+Date: 2023-09-14
+Authors@R: c(
+    person("Jian", "Cao", email = "caoj@tcd.ie", role = c("aut", "cre")),
+    person("Thomas", "Chadefaux", role = "ctb"))
+Description: A package to implement the dynamic synthetic control method for 
+    time series analysis.
+License: GPL-3
+Depends: 
+    R (>= 3.5.0)
+Imports:
+    dplyr,
+    dtw, 
+    forecast, 
+    furrr,
+    ggplot2,
+    magrittr,
+    Matrix, 
+    purrr, 
+    reshape2,
+    rlang,
+    signal, 
+    stats, 
+    Synth, 
+    tibble,
+    zoo
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

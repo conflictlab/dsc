@@ -15,8 +15,9 @@
 #' @return A list containing the actual values (`value`), average values (`average`),
 #'         and the synthetic control predictions (`synthetic`).
 #'
+#' @importFrom magrittr `%>%`
 #' @keywords internal
-do.synth = function(df, dep.var, dependent.id, predictors,
+do.synth <- function(df, dep.var, dependent.id, predictors,
                     special.predictors, time.predictors.prior,
                     time.optimize.ssr){
   # find v
@@ -43,10 +44,23 @@ do.synth = function(df, dep.var, dependent.id, predictors,
       Margin.ipop=.005,Sigf.ipop=7,Bound.ipop=6
     )
 
-  value = df %>% filter(id == dependent.id) %>% `$`(value_raw)
-  average = df %>% filter(id != dependent.id) %>% group_by(time) %>%
-    summarise(average = mean(!!sym(dep.var), na.rm = TRUE)) %>% `$`(average)
-  synthetic = dataprep.out$Y0%*%synth.out$solution.w %>% as.numeric
+  # value = df %>% dplyr::filter(id == dependent.id) %>% `$`(value_raw)
+  # average = df %>% dplyr::filter(id != dependent.id) %>% dplyr::group_by(time) %>%
+  #   dplyr::summarise(average = mean(!!rlang::sym(dep.var), na.rm = TRUE)) %>% `$`(average)
+  # synthetic = dataprep.out$Y0%*%synth.out$solution.w %>% as.numeric
+
+  value <- df %>%
+    dplyr::filter(.data$id == dependent.id) %>%
+    dplyr::pull(.data$value_raw)
+
+  average <- df %>%
+    dplyr::filter(.data$id != dependent.id) %>%
+    dplyr::group_by(.data$time) %>%
+    dplyr::summarise(average = mean(!!rlang::sym(dep.var), na.rm = TRUE)) %>%
+    dplyr::pull(.data$average)
+
+  synthetic <- dataprep.out$Y0 %*% synth.out$solution.w %>%
+    as.numeric()
 
   return(list(value = value,
               average = average,

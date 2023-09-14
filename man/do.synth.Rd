@@ -30,12 +30,12 @@ do.synth(
 \item{time.optimize.ssr}{Time period to optimize the SSR.}
 }
 \value{
-A list containing the actual values (\code{value}), average values (\code{average}),
-and the synthetic control predictions (\code{synthetic}).
+A list containing the actual values (`value`), average values (`average`),
+        and the synthetic control predictions (`synthetic`).
 }
 \description{
 This function performs the synthetic control method on provided data. It prepares the data
-and fits a synthetic control model using the \code{synth} package. This is an internal helper
+and fits a synthetic control model using the `synth` package. This is an internal helper
 function and is not intended to be directly used by package users.
 }
 \keyword{internal}

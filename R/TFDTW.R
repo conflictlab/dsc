@@ -14,6 +14,7 @@
 #' @param plot.figures Logical, whether to plot figures. Default is FALSE.
 #' @param ... Additional arguments passed to other methods.
 #' @return A list containing various outputs from the DTW process.
+#' @importFrom magrittr `%>%`
 #' @keywords internal
 first.dtw = function(x, y, t.treat, buffer = 10,
                      norm.method = "t", match.method = "fixed",
