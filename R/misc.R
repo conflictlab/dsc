@@ -77,7 +77,7 @@ preprocessing <- function(data, filter.width = 5, norm.method = "t",
                            time ~ unit, value.var = "value_raw")
 
   # normalize
-  values = values %>% mutate_at(setdiff(colnames(.data$values), "time"),
+  values = values %>% mutate_at(setdiff(colnames(values), "time"),
                                 ~normalize(., norm.method))
 
   # add buffer
