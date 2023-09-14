@@ -113,7 +113,7 @@ preprocessing <- function(data, filter.width = 5, norm.method = "t",
 warp2weight <- function(W) {
   w = as.matrix(W)
   count = rep(1/colSums(w), nrow(w)) %>%
-    matrix(.data,
+    matrix(.,
            nrow = ncol(w),
            ncol = nrow(w)) %>%
     t()
