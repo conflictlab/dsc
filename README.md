@@ -67,4 +67,4 @@ result <- dsc(
 
 ## Feedback and Contributions
 
-We welcome your feedback and contributions! Please open an issue on [GitHub](https://github.com/conflict/dsc/issues) or submit a pull request if you want to propose changes.
+We welcome your feedback and contributions! Please open an issue on [GitHub](https://github.com/conflictlab/dsc/issues) or submit a pull request if you want to propose changes.
