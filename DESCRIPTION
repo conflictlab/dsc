@@ -8,7 +8,7 @@ Authors@R: c(
     person("Thomas", "Chadefaux", role = "ctb"))
 Description: A package to implement the dynamic synthetic control method for 
     time series analysis.
-License: GPL-3
+License: MIT
 Depends: 
     R (>= 3.5.0)
 Imports:
