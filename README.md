@@ -1,6 +1,6 @@
 # dsc
 
-[![GitHub License](https://img.shields.io/github/license/conflictlab/dsc)](https://github.com/conflictlab/dsc/blob/main/LICENSE) 
+[![GitHub License](https://img.shields.io/github/license/conflictlab/dsc)](https://github.com/conflictlab/dsc/LICENSE) 
 ![GitHub Repo stars](https://img.shields.io/github/stars/conflictlab/dsc?style=social) 
 
 R package to implement Dynamic Synthetic Control ---- an enhanced synthetic control method that accounts for varying speeds across units and times.
