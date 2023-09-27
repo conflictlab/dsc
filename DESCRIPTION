@@ -7,7 +7,7 @@ Authors@R: c(
     person("Jian", "Cao", email = "caoj@tcd.ie", role = c("aut", "cre")),
     person("Thomas", "Chadefaux", role = "ctb"))
 Description: Implements the Dynamic Synthetic Control method as described in Cao and Chadefaux (2023). Synthetic controls are widely used in social science research to estimate the causal effects of treatments such as events or policies. The 'dsc' package extends traditional synthetic control methods by introducing a dynamic approach that accounts for varying speeds at which different units respond to changes. Ignoring these varying speeds can result in biased estimates of causal effects. This package offers a more robust method for constructing counterfactuals in time series analysis, thereby improving the accuracy of treatment effect estimates. It incorporates algorithms for dynamic time warping and allows for adjustment of varying speeds within and across units. The package is validated through extensive Monte-Carlo simulations and applied to re-estimate the effects of several seminal case studies.
-License: MIT
+License: MIT + file LICENSE
 URL: github.com/conflictlab/dsc
 Depends: 
     R (>= 3.5.0)
