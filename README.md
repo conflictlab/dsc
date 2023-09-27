@@ -65,6 +65,14 @@ result <- dsc(
 )
 ```
 
+## Citation
+To acknowledge the use of this package in your work, please use the citation format provided below:
+
+Jian Cao (2023). dsc: Dynamic Synthetic Control Method for Comparative Case Studies. Version 0.1.0. URL: github.com/conflictlab/dsc
+
+
+
+
 ## Feedback and Contributions
 
 We welcome your feedback and contributions! Please open an issue on [GitHub](https://github.com/conflictlab/dsc/issues) or submit a pull request if you want to propose changes.
