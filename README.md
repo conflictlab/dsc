@@ -7,7 +7,7 @@ Implements the Dynamic Synthetic Control (DSC) method as described in Cao and Ch
 
 Authors: Jian Cao and Thomas Chadefaux
 
-Maintainer: caoj@tcd.ie
+Maintainer: Jian Cao. caoj@tcd.ie
 
 License: GPL-3
 
