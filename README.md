@@ -5,6 +5,13 @@
 
 Implements the Dynamic Synthetic Control (DSC) method as described in Cao and Chadefaux (2024). DSC extends the synthetic control method (Abadie and Gardeazabal, 2003; Abadie, Diamond, and Hainmueller, 2010, 2011, 2014) by accounting for varying response speeds across units and time. Using dynamic time warping (DTW), DSC aligns donor units with the treated unit in the pre-treatment period, mitigating bias caused by differential adaptation rates. It provides a data-driven procedure to construct synthetic control units based on a weighted combination of comparison units, improving counterfactual estimation in comparative case studies. The package includes functions for DSC implementation, placebo tests, and visualization tools for treatment effect inference.
 
+Authors: Jian Cao and Thomas Chadefaux
+Maintainer: caoj@tcd.ie
+License: GPL-3
+Depends: R (>= 3.5.0)
+Imports: 
+URL: https://github.com/conflictlab/dsc
+
 
 ## Installation
 
