@@ -99,11 +99,10 @@ result <- dsc(
   parallel = TRUE,
   special.predictors = special_preds,
   time.predictors.prior = 1955:1969,
-  time.optimize.ssr = 1955:1969
+  time.optimize.ssr = 1955:1969,
+  plot.figures=TRUE
 )
 
-# Visualize results
-plot(result)
 ```
 
 # Empirical Applications
