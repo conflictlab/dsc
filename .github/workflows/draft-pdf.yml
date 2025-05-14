@@ -19,9 +19,16 @@ jobs:
         with:
           journal: joss
           paper-path: paper.md
+          output-path: paper.pdf  # Explicitly output to root as paper.pdf
 
       - name: Upload compiled PDF
         uses: actions/upload-artifact@v4
         with:
           name: paper-pdf
           path: paper.pdf
+
+      - name: Commit PDF to repository
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "(auto) add compiled paper"
+          add: "paper.pdf"
