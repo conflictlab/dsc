@@ -2,20 +2,13 @@
 
 title: "dsc: Dynamic Synthetic Control for Time Series with Heterogeneous Adjustment Speeds"
 authors:
+  - given-names: Jian
+    surname: Cao
+    affiliation: 1
+  - given-names: Thomas
+    surname: Chadefaux
+    affiliation: 1
 
-* name:
-  given-names: Jian
-  surname: Cao
-  affiliation: 1
-* name:
-  given-names: Thomas
-  surname: Chadefaux
-  affiliation: 1
-  affiliations:
-* index: 1
-  name: Department of Political Science, Trinity College Dublin, Ireland
-  date: 14 May 2025
-  bibliography: paper.bib
 
 ---
 
