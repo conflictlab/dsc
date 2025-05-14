@@ -142,44 +142,10 @@ This research was supported by the European Research Council (ERC) under the Eur
 
 # References
 
-```bibtex
-@article{abadie2003economic,
-  title={The economic costs of conflict: A case study of the Basque Country},
-  author={Abadie, Alberto and Gardeazabal, Javier},
-  journal={American Economic Review},
-  volume={93},
-  number={1},
-  pages={113--132},
-  year={2003}
-}
+Abadie, A., & Gardeazabal, J. (2003). *The economic costs of conflict: A case study of the Basque Country*. American Economic Review, 93(1), 113–132.
 
-@article{abadie2010synthetic,
-  title={Synthetic control methods for comparative case studies: Estimating the effect of California's tobacco control program},
-  author={Abadie, Alberto and Diamond, Alexis and Hainmueller, Jens},
-  journal={Journal of the American Statistical Association},
-  volume={105},
-  number={490},
-  pages={493--505},
-  year={2010}
-}
+Abadie, A., Diamond, A., & Hainmueller, J. (2010). *Synthetic control methods for comparative case studies: Estimating the effect of California's tobacco control program*. Journal of the American Statistical Association, 105(490), 493–505.
 
-@article{abadie2015comparative,
-  title={Comparative politics and the synthetic control method},
-  author={Abadie, Alberto and Diamond, Alexis and Hainmueller, Jens},
-  journal={American Journal of Political Science},
-  volume={59},
-  number={2},
-  pages={495--510},
-  year={2015}
-}
+Abadie, A., Diamond, A., & Hainmueller, J. (2015). *Comparative politics and the synthetic control method*. American Journal of Political Science, 59(2), 495–510.
 
-@article{vintsyuk1968dtw,
-  title={Speech discrimination by dynamic programming},
-  author={Vintsyuk, T. K.},
-  journal={Cybernetics},
-  volume={4},
-  number={1},
-  pages={52--57},
-  year={1968}
-}
-```
+Vintsyuk, T. K. (1968). *Speech discrimination by dynamic programming*. Cybernetics, 4(1), 52–57.
