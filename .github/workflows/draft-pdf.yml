@@ -1,4 +1,5 @@
 name: Draft PDF
+
 on:
   push:
     paths:
@@ -10,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Paper Draft
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Build draft PDF
@@ -18,15 +19,16 @@ jobs:
         with:
           journal: joss
           paper-path: joss.md
+          output-path: joss.pdf  # Force the output to this file
 
-      - name: Upload
+      - name: Upload PDF as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: joss
-          path: joss/joss.pdf
-          
+          name: joss-pdf
+          path: joss.pdf  # Matches the output-path above
+
       - name: Commit PDF to repository
         uses: EndBug/add-and-commit@v9
         with:
-          message: '(auto) add paper draft'
-          add: 'joss/joss.pdf'
+          message: "(auto) add paper draft"
+          add: "joss.pdf"
