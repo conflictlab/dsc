@@ -3,7 +3,7 @@ name: Draft PDF
 on:
   push:
     paths:
-      - joss.md
+      - paper.md
       - .github/workflows/draft-pdf.yml
 
 jobs:
@@ -18,17 +18,10 @@ jobs:
         uses: openjournals/openjournals-draft-action@master
         with:
           journal: joss
-          paper-path: joss.md
-          output-path: joss.pdf  # Force the output to this file
+          paper-path: paper.md
 
-      - name: Upload PDF as artifact
+      - name: Upload compiled PDF
         uses: actions/upload-artifact@v4
         with:
-          name: joss-pdf
-          path: joss.pdf  # Matches the output-path above
-
-      - name: Commit PDF to repository
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: "(auto) add paper draft"
-          add: "joss.pdf"
+          name: paper-pdf
+          path: paper.pdf
