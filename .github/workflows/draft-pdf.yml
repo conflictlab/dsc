@@ -24,6 +24,7 @@ jobs:
         with:
           name: joss
           path: joss.pdf
+          
       - name: Commit PDF to repository
         uses: EndBug/add-and-commit@v9
         with:
