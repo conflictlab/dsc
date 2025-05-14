@@ -22,13 +22,15 @@ Implemented in R, `dsc` aligns donor units to the treated unit using speed-adjus
 
 # Statement of Need
 
-Standard synthetic control techniques assume that all units react to shocks or policies at the same speed. This can result in poor fits and misleading conclusions when donor units respond more slowly or more quickly than treated ones. For example, institutional inertia might delay reactions in one country relative to another, even if underlying economic mechanisms are similar.
+Synthetic control methods are now standard tools in causal inference, especially for policy evaluation. However, the standard approach assumes all units respond to shocks or treatments at a uniform rate. This is rarely true in practice: countries, regions, or institutions often differ in how quickly they adjust to change. If this heterogeneity is not accounted for, it may lead to incorrect counterfactuals and misleading conclusions.
 
-The `dsc` package provides a principled solution by using DTW to synchronize pre-treatment time series between treated and donor units. This synchronization reduces mean squared error in treatment effect estimation by up to 70% in simulations and improves placebo test performance in real-world datasets. It fills a gap in the causal inference toolkit by allowing for varying speeds of adjustment, a common real-world phenomenon that existing packages ignore.
+The dsc package fills this gap by incorporating time-series alignment using DTW before the construction of the synthetic control. This ensures that donor units are temporally matched with the treated unit, even if their dynamics differ. Unlike some other synthetic control extensions that address poor pre-treatment fit by removing problematic donors or augmenting the model, DSC fixes the problem at the alignment stage without discarding information.
+
+No other R package currently offers DTW-based alignment within the synthetic control framework in a fully automated and documented way. Thus, dsc represents a substantial contribution to applied research workflows.
 
 # Model Overview
 
-Synthetic control methods construct counterfactuals for treated units using weighted combinations of untreated donor units. Let $y\_{1t}$ denote the treated unit, and $y_{jt}$ denote donors $j = 2, ..., J+1$. The goal is to find weights $w_j$ such that:
+The synthetic control estimator builds counterfactuals for treated units using weighted combinations of untreated donor units. Let $y\_{1t}$ denote the treated unit, and $y_{jt}$ denote donors $j = 2, ..., J+1$. The goal is to find weights $w_j$ such that:
 
 $$
 y_{1t} \approx \sum_{j=2}^{J+1} w_j y_{jt}
@@ -36,7 +38,9 @@ $$
 
 for the pre-treatment period $t < T$.
 
-However, if donor units respond to latent shocks $z_t$ with lags, then the pre-treatment series are not aligned in time. The `dsc` package addresses this by warping $y_{jt}$ to align with $y_{1t}$ using DTW. The warped donor series $y^w_{jt}$ is then used in synthetic control estimation.
+However, if donor series differ in response speed, direct comparison misaligns their dynamics. The DSC method introduces DTW-based warping functions $g_j(t)$ such that the warped donor series $y_{jt}^{(w)} = y_{j, g_j(t)}$ is aligned with the treated unit's trajectory in the pre-treatment window. Synthetic weights are then computed using these aligned donor series.
+
+The warping is applied only to the pre-treatment period to preserve the post-treatment information. In the post-treatment window, the same transformation is propagated, ensuring comparability and interpretability.
 
 # Implementation
 
@@ -47,6 +51,14 @@ The core of the `dsc` method is a three-step process:
 3. **Construct Synthetic Control**: Estimate weights $w_j$ to best fit the warped donor series $y^w_j$ to $y_1$ before treatment.
 
 This preserves any speed differences introduced by the treatment itself, while eliminating those inherited from structural or institutional differences.
+
+The package also includes:
+
+Diagnostic plots (e.g., observed vs synthetic, treatment gap)
+
+Placebo tests
+
+Parallel processing for faster estimation
 
 # Code Example
 
