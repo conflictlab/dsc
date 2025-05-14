@@ -28,23 +28,23 @@ The `dsc` package provides a principled solution by using DTW to synchronize pre
 
 # Model Overview
 
-Synthetic control methods construct counterfactuals for treated units using weighted combinations of untreated donor units. Let \$y\_{1t}\$ denote the treated unit, and \$y\_{jt}\$ denote donors \$j = 2, ..., J+1\$. The goal is to find weights \$w\_j\$ such that:
+Synthetic control methods construct counterfactuals for treated units using weighted combinations of untreated donor units. Let $y\_{1t}$ denote the treated unit, and $y_{jt}$ denote donors $j = 2, ..., J+1$. The goal is to find weights $w_j$ such that:
 
 $$
 y_{1t} \approx \sum_{j=2}^{J+1} w_j y_{jt}
 $$
 
-for the pre-treatment period \$t < T\$.
+for the pre-treatment period $t < T$.
 
-However, if donor units respond to latent shocks \$z\_t\$ with lags, then the pre-treatment series are not aligned in time. The `dsc` package addresses this by warping \$y\_{jt}\$ to align with \$y\_{1t}\$ using DTW. The warped donor series \$y^w\_{jt}\$ is then used in synthetic control estimation.
+However, if donor units respond to latent shocks $z_t$ with lags, then the pre-treatment series are not aligned in time. The `dsc` package addresses this by warping $y_{jt}$ to align with $y_{1t}$ using DTW. The warped donor series $y^w_{jt}$ is then used in synthetic control estimation.
 
 # Implementation
 
 The core of the `dsc` method is a three-step process:
 
-1. **Warping Pre-Treatment Series**: Use DTW to align each donor series \$y\_j\$ to the treated unit \$y\_1\$ during the pre-treatment period.
+1. **Warping Pre-Treatment Series**: Use DTW to align each donor series $y_j$ to the treated unit $y_1$ during the pre-treatment period.
 2. **Propagate Speed Alignment**: Apply the inferred warping path to the post-treatment period of each donor unit.
-3. **Construct Synthetic Control**: Estimate weights \$w\_j\$ to best fit the warped donor series \$y^w\_j\$ to \$y\_1\$ before treatment.
+3. **Construct Synthetic Control**: Estimate weights $w_j$ to best fit the warped donor series $y^w_j$ to $y_1$ before treatment.
 
 This preserves any speed differences introduced by the treatment itself, while eliminating those inherited from structural or institutional differences.
 
@@ -130,7 +130,7 @@ $$
 r = \log \left( \frac{\text{MSE}_{DSC}}{\text{MSE}_{SC}} \right)
 $$
 
-The average \$r\$ is negative across all scenarios, indicating that DSC yields lower mean squared errors.
+The average $r$ is negative across all scenarios, indicating that DSC yields lower mean squared errors.
 
 # Discussion and Limitations
 
