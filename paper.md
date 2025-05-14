@@ -16,9 +16,13 @@ date: 14 May 2025
 
 # Summary
 
-The `dsc` package introduces Dynamic Synthetic Control, a new approach for comparative case studies in time series settings. Synthetic control methods are widely used to estimate causal effects, but they often fail when treated and donor units react to shocks at different speeds. The `dsc` package addresses this by incorporating Dynamic Time Warping (DTW) to account for heterogeneous adjustment speeds across units, improving counterfactual estimation.
+The dsc package implements the Dynamic Synthetic Control (DSC) method, an extension of the synthetic control framework designed for comparative case studies involving time series data. Traditional synthetic control assumes that treated and donor units respond to shocks at the same rate, which can lead to poor pre-treatment fit and biased treatment effect estimates when this assumption is violated.
 
-Implemented in R, `dsc` aligns donor units to the treated unit using speed-adjusted time series before estimating synthetic weights. This innovation helps avoid biases arising from asynchronous reactions and supports more accurate estimation of treatment effects. The package is useful for applications in economics, public policy, and political science.
+The DSC method addresses this issue by aligning time series data from donor units with the treated unit using Dynamic Time Warping (DTW), a technique that accounts for differences in the speed of adjustment across units. The alignment is performed only in the pre-treatment period, preserving the integrity of treatment effects post-intervention. This correction improves the counterfactual estimation, as shown in both empirical examples and simulations.
+
+The method is described in detail in Cao and Chadefaux (2024), where it is applied to comparative political economy questions in a peer-reviewed context. The dsc package provides a clean and replicable implementation of the methodology introduced in that work, extending its accessibility to empirical researchers.
+
+The dsc package is implemented in R and integrates easily into existing workflows. It supports parallel computation, placebo tests, and multiple diagnostic plots. Its interface is user-friendly and familiar to users of the Synth package. DSC is particularly useful in political science, economics, and public policy, where variation in adjustment dynamics is common.
 
 # Statement of Need
 
@@ -158,5 +162,7 @@ Abadie, A., & Gardeazabal, J. (2003). *The economic costs of conflict: A case st
 Abadie, A., Diamond, A., & Hainmueller, J. (2010). *Synthetic control methods for comparative case studies: Estimating the effect of California's tobacco control program*. Journal of the American Statistical Association, 105(490), 493–505.
 
 Abadie, A., Diamond, A., & Hainmueller, J. (2015). *Comparative politics and the synthetic control method*. American Journal of Political Science, 59(2), 495–510.
+
+Cao, J., & Chadefaux, T. (2024). Dynamic Synthetic Control. Political Analysis, 32(1), 1–18. https://doi.org/10.1017/pan.2023.50
 
 Vintsyuk, T. K. (1968). *Speech discrimination by dynamic programming*. Cybernetics, 4(1), 52–57.
