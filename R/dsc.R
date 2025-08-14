@@ -218,7 +218,7 @@ dsc <- function(data, start.time, end.time, treat.time,
   dependent.id = df.synth[["id"]][which.max(df.synth$unit == dependent)]
 
   # Synth
-  res.synth = do.synth(df = df.synth,
+  res.synth <- do.synth(df = df.synth,
                         dep.var = "value_warped",
                         dependent.id = dependent.id,
                         predictors = predictors,
@@ -237,7 +237,7 @@ dsc <- function(data, start.time, end.time, treat.time,
     )
     
     # Plot with ggplot
-    ggplot(df.plot, aes(x = x, y = value, color = series)) +
+    fig <- ggplot(df.plot, aes(x = x, y = value, color = series)) +
       geom_line(size = 1) +
       ggplot2::geom_vline(xintercept = treat.time, linetype = "dashed") +
       ggplot2::labs(
@@ -247,6 +247,7 @@ dsc <- function(data, start.time, end.time, treat.time,
         color = NULL
       ) +
       theme_bw()
+    print(fig)
   }
 
   return(res.synth)
