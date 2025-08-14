@@ -239,17 +239,14 @@ dsc <- function(data, start.time, end.time, treat.time,
     # Plot with ggplot
     ggplot(df.plot, aes(x = x, y = value, color = series)) +
       geom_line(size = 1) +
-      geom_vline(xintercept = treat.time, linetype = "dashed") +
-      labs(
+      ggplot2::geom_vline(xintercept = treat.time, linetype = "dashed") +
+      ggplot2::labs(
         title = dependent,
         x = "Time",
         y = "Value",
         color = NULL
       ) +
-      theme_minimal() +
-      theme(
-        plot.title = element_text(hjust = 0.5)
-      )
+      theme_bw()
   }
 
   return(res.synth)
