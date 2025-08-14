@@ -87,6 +87,7 @@
 #'   dependent = "Basque Country (Pais Vasco)",
 #'   predictors = NULL,
 #'   parallel = TRUE,
+#'   plot.figures = TRUE,
 #'   special.predictors = special_preds,
 #'   time.predictors.prior = 1955:1969,
 #'   time.optimize.ssr = 1955:1969
