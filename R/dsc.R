@@ -247,7 +247,7 @@ dsc <- function(data, start.time, end.time, treat.time,
         color = NULL
       ) +
       theme_bw()
-    print(fig)
+    suppressWarnings(print(fig))
   }
 
   return(res.synth)
