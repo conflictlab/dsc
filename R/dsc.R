@@ -181,7 +181,6 @@ dsc <- function(data, start.time, end.time, treat.time,
                      match.method = match.method,
                      step.pattern1 = step.pattern1,
                      step.pattern2 = step.pattern2,
-                     plot.figures = plot.figures,
                      n.burn = n.burn,
                      ma = ma, ma.na = ma.na,
                      dist.quant = dist.quant, n.IQR = n.IQR,
@@ -226,6 +225,32 @@ dsc <- function(data, start.time, end.time, treat.time,
                         special.predictors = special.predictors,
                         time.predictors.prior = time.predictors.prior,
                         time.optimize.ssr = time.optimize.ssr)
+  
+  # Plot figure
+  if (plot.figures) {
+    # Prepare data frame
+    df.plot <- data.frame(
+      value = c(res.synth$value, res.synth$synthetic),
+      series = c(rep("Treated Unit", length(res.synth$value)),
+                 rep("DSC", length(res.synth$value))),
+      x = rep(start.time:end.time, 2)
+    )
+    
+    # Plot with ggplot
+    ggplot(df.plot, aes(x = x, y = value, color = series)) +
+      geom_line(size = 1) +
+      geom_vline(xintercept = treat.time, linetype = "dashed") +
+      labs(
+        title = dependent,
+        x = "Time",
+        y = "Value",
+        color = NULL
+      ) +
+      theme_minimal() +
+      theme(
+        plot.title = element_text(hjust = 0.5)
+      )
+  }
 
   return(res.synth)
 }
