@@ -16,9 +16,9 @@ date: 14 May 2025
 
 # Summary
 
-The dsc package implements the Dynamic Synthetic Control (DSC) method, an extension of the synthetic control framework designed for comparative case studies involving time series data. Traditional synthetic control assumes that treated and donor units respond to shocks at the same rate, which can lead to poor pre-treatment fit and biased treatment effect estimates when this assumption is violated.
+The dsc package (Cao and Chadefaux, 2025) implements the Dynamic Synthetic Control (DSC) method, an extension of the synthetic control framework designed for comparative case studies involving time series data. Traditional synthetic control assumes that treated and donor units respond to shocks at the same rate, which can lead to poor pre-treatment fit and biased treatment effect estimates when this assumption is violated.
 
-The DSC method addresses this issue by aligning time series data from donor units with the treated unit using Dynamic Time Warping (DTW), a technique that accounts for differences in the speed of adjustment across units. The djustment is only made to the misalignment that orgininates from the pre-treatment period, preserving the integrity of treatment effects post-intervention. This correction improves the counterfactual estimation, as shown in both empirical examples and simulations.
+The DSC method addresses this issue by aligning time series data from donor units with the treated unit using Dynamic Time Warping (DTW), a technique that accounts for differences in the speed of adjustment across units. The adjustment is only made to the misalignment that originates from the pre-treatment period, preserving the integrity of treatment effects post-intervention. This correction improves the counterfactual estimation, as shown in both empirical examples and simulations.
 
 The method is described in detail in Cao and Chadefaux (2024), where it is applied to comparative political economy questions in a peer-reviewed context. The dsc package provides a clean and replicable implementation of the methodology introduced in that work, extending its accessibility to empirical researchers.
 
@@ -128,7 +128,8 @@ result <- dsc(
 
 ## Terrorism and GDP in the Basque Country
 
-We replicate Abadie and Gardeazabal (2003), estimating the effect of terrorism on GDP using DSC. Compared to traditional synthetic control, DSC shows a closer match for placebo units and reduced mean squared error.
+We replicate Abadie and Gardeazabal (2003), estimating the effect of terrorism on GDP using DSC. Compared to traditional synthetic control, DSC shows a closer match for placebo units and reduced mean squared error (Figure \@ref(fig:basque-dsc)).
+
 
 ## Proposition 99: Tobacco Control in California
 
@@ -169,3 +170,5 @@ Abadie, A., Diamond, A., & Hainmueller, J. (2015). *Comparative politics and the
 Cao, J., & Chadefaux, T. (2024). Dynamic Synthetic Control. Political Analysis, 32(1), 1–18. https://doi.org/10.1017/pan.2023.50
 
 Vintsyuk, T. K. (1968). *Speech discrimination by dynamic programming*. Cybernetics, 4(1), 52–57.
+
+Cao, J., & Chadefaux, T. (2025). dsc: Dynamic Synthetic Control for Time Series with Heterogeneous Adjustment Speeds* [Computer software]. GitHub. https://github.com/conflictlab/dsc
