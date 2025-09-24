@@ -121,7 +121,7 @@ result <- dsc(
 
 ```
 
-![Observed GDP of the Basque Country compared with its DSC-based synthetic control.](example.pdf){#fig:basque-dsc width=80%}
+![Observed GDP of the Basque Country compared with its DSC-based synthetic control.](example.pdf){#fig:basque-dsc width=100%}
 
 
 # Empirical Applications
