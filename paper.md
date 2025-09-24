@@ -171,4 +171,4 @@ Cao, J., & Chadefaux, T. (2024). Dynamic Synthetic Control. Political Analysis, 
 
 Vintsyuk, T. K. (1968). *Speech discrimination by dynamic programming*. Cybernetics, 4(1), 52–57.
 
-Cao, J., & Chadefaux, T. (2025). dsc: Dynamic Synthetic Control for Time Series with Heterogeneous Adjustment Speeds* [Computer software]. GitHub. https://github.com/conflictlab/dsc
+Cao, J., & Chadefaux, T. (2025). dsc: Dynamic Synthetic Control for Time Series with Heterogeneous Adjustment Speeds [Computer software]. GitHub. https://github.com/conflictlab/dsc
