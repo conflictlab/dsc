@@ -18,7 +18,7 @@ date: 14 May 2025
 
 The dsc package implements the Dynamic Synthetic Control (DSC) method, an extension of the synthetic control framework designed for comparative case studies involving time series data. Traditional synthetic control assumes that treated and donor units respond to shocks at the same rate, which can lead to poor pre-treatment fit and biased treatment effect estimates when this assumption is violated.
 
-The DSC method addresses this issue by aligning time series data from donor units with the treated unit using Dynamic Time Warping (DTW), a technique that accounts for differences in the speed of adjustment across units. The alignment is performed only in the pre-treatment period, preserving the integrity of treatment effects post-intervention. This correction improves the counterfactual estimation, as shown in both empirical examples and simulations.
+The DSC method addresses this issue by aligning time series data from donor units with the treated unit using Dynamic Time Warping (DTW), a technique that accounts for differences in the speed of adjustment across units. The djustment is only made to the misalignment that orgininates from the pre-treatment period, preserving the integrity of treatment effects post-intervention. This correction improves the counterfactual estimation, as shown in both empirical examples and simulations.
 
 The method is described in detail in Cao and Chadefaux (2024), where it is applied to comparative political economy questions in a peer-reviewed context. The dsc package provides a clean and replicable implementation of the methodology introduced in that work, extending its accessibility to empirical researchers.
 
@@ -44,7 +44,7 @@ for the pre-treatment period $t < T$.
 
 However, if donor series differ in response speed, direct comparison misaligns their dynamics. The DSC method introduces DTW-based warping functions $g_j(t)$ such that the warped donor series $y_{jt}^{(w)} = y_{j, g_j(t)}$ is aligned with the treated unit's trajectory in the pre-treatment window. Synthetic weights are then computed using these aligned donor series.
 
-The warping is applied only to the pre-treatment period to preserve the post-treatment information. In the post-treatment window, the same transformation is propagated, ensuring comparability and interpretability.
+The warping is applied only to misalignments that originate from the pre-treatment period. In the post-treatment window, the same transformation is propagated, which ensures comparability and interpretability.
 
 # Implementation
 
@@ -121,6 +121,9 @@ result <- dsc(
 
 ```
 
+![Observed GDP of the Basque Country compared with its DSC-based synthetic control.](example.pdf){#fig:basque-dsc width=80%}
+
+
 # Empirical Applications
 
 ## Terrorism and GDP in the Basque Country
@@ -149,7 +152,7 @@ The average $r$ is negative across all scenarios, indicating that DSC yields low
 
 # Discussion and Limitations
 
-The `dsc` method improves synthetic control estimation by accounting for reaction speed heterogeneity. However, it assumes that speed differences are stable in the pre-treatment period and that no spillover effects contaminate donor units. Extensions to multi-treatment cases or endogenously determined timing remain areas for future work.
+The `dsc` method improves synthetic control estimation by accounting for reaction speed heterogeneity. Extensions to multi-treatment cases or endogenously determined timing remain areas for future work.
 
 # Acknowledgements
 
