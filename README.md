@@ -1,4 +1,4 @@
-# dsc
+# dsc: Dynamic Synthetic Control for Time Series with Heterogeneous Adjustment Speeds
 
 [![GitHub License](https://img.shields.io/github/license/conflictlab/dsc)](https://github.com/conflictlab/dsc/blob/main/LICENSE) 
 ![GitHub Repo stars](https://img.shields.io/github/stars/conflictlab/dsc?style=social) 
