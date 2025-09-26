@@ -128,7 +128,7 @@ result <- dsc(
 
 ## Terrorism and GDP in the Basque Country
 
-We replicate Abadie and Gardeazabal (2003), estimating the effect of terrorism on GDP using DSC. Compared to traditional synthetic control, DSC shows a closer match for placebo units and reduced mean squared error (Figure @rfig:basque-dsc).
+We replicate Abadie and Gardeazabal (2003), estimating the effect of terrorism on GDP using DSC. Compared to traditional synthetic control, DSC shows a closer match for placebo units and reduced mean squared error (Figure 1).
 
 
 ## Proposition 99: Tobacco Control in California
