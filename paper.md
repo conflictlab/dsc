@@ -7,11 +7,13 @@ authors:
   affiliation: 1
 - given-names: Thomas
   surname: Chadefaux
-  affiliation: 1
-date: "14 May 2025"
+  affiliation: 2
+date: "26 September 2025"
 output: pdf_document
 affiliations:
 - index: 1
+  name: Department of Economics, Trinity College Dublin, Ireland
+- index: 2
   name: Department of Political Science, Trinity College Dublin, Ireland
 ---
 
