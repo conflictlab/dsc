@@ -1,20 +1,16 @@
 ---
-title: 'dsc: Dynamic Synthetic Control for Time Series with Heterogeneous Adjustment
-  Speeds'
+title: "dsc: Dynamic Synthetic Control for Time Series with Heterogeneous Adjustment Speeds"
 authors:
-- given-names: Jian
-  surname: Cao
-  affiliation: 1
-- given-names: Thomas
-  surname: Chadefaux
-  affiliation: 2
-date: "26 September 2025"
-output: pdf_document
+  - given-names: Jian
+    surname: Cao
+    affiliation: 1
+  - given-names: Thomas
+    surname: Chadefaux
+    affiliation: 1
 affiliations:
-- index: 1
-  name: Department of Economics, Trinity College Dublin, Ireland
-- index: 2
-  name: Department of Political Science, Trinity College Dublin, Ireland
+  - index: 1
+    name: Department of Political Science, Trinity College Dublin, Ireland
+date: 14 May 2025
 ---
 
 
@@ -132,7 +128,7 @@ result <- dsc(
 
 ## Terrorism and GDP in the Basque Country
 
-We replicate Abadie and Gardeazabal (2003), estimating the effect of terrorism on GDP using DSC. Compared to traditional synthetic control, DSC shows a closer match for placebo units and reduced mean squared error (Figure @fig:basque-dsc).
+We replicate Abadie and Gardeazabal (2003), estimating the effect of terrorism on GDP using DSC. Compared to traditional synthetic control, DSC shows a closer match for placebo units and reduced mean squared error (Figure \@ref(fig:basque-dsc)).
 
 
 ## Proposition 99: Tobacco Control in California
