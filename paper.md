@@ -1,16 +1,18 @@
 ---
-title: "dsc: Dynamic Synthetic Control for Time Series with Heterogeneous Adjustment Speeds"
+title: 'dsc: Dynamic Synthetic Control for Time Series with Heterogeneous Adjustment
+  Speeds'
 authors:
-  - given-names: Jian
-    surname: Cao
-    affiliation: 1
-  - given-names: Thomas
-    surname: Chadefaux
-    affiliation: 1
+- given-names: Jian
+  surname: Cao
+  affiliation: 1
+- given-names: Thomas
+  surname: Chadefaux
+  affiliation: 1
+date: "14 May 2025"
+output: pdf_document
 affiliations:
-  - index: 1
-    name: Department of Political Science, Trinity College Dublin, Ireland
-date: 14 May 2025
+- index: 1
+  name: Department of Political Science, Trinity College Dublin, Ireland
 ---
 
 
@@ -34,7 +36,7 @@ No other R package currently offers DTW-based alignment within the synthetic con
 
 # Model Overview
 
-The synthetic control estimator builds counterfactuals for treated units using weighted combinations of untreated donor units. Let $y\_{1t}$ denote the treated unit, and $y_{jt}$ denote donors $j = 2, ..., J+1$. The goal is to find weights $w_j$ such that:
+The synthetic control estimator builds counterfactuals for treated units using weighted combinations of untreated donor units. Let $y_{1t}$ denote the treated unit, and $y_{jt}$ denote donors $j = 2, ..., J+1$. The goal is to find weights $w_j$ such that:
 
 $$
 y_{1t} \approx \sum_{j=2}^{J+1} w_j y_{jt}
